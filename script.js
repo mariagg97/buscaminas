@@ -42,7 +42,6 @@ function placeMines(){
     while (mineArray.length < mines){
         const randomRow = Math.floor(Math.random() * rows);
         const randomColumn = Math.floor(Math.random() * columns);
-        console.log(randomRow, randomColumn);
         if (!boardArray[randomRow][randomColumn].isMine) {
             boardArray[randomRow][randomColumn].isMine = true;
             mineArray.push({row: randomRow, column: randomColumn});
@@ -155,7 +154,7 @@ function resetGame (){
 const resetButton = document.querySelector(".resetButton");
 resetButton.addEventListener("click", resetGame);
 
-
+//contador banderas
 function countFlags() {
     const countFlagsElement = document.querySelector(".countFlags");
     countFlagsElement.textContent = `Banderas colocadas: ${flagArray.length}`;
