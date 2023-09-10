@@ -116,18 +116,23 @@ function placeFlag(row, col){
         }
         if(flagArray.length>mines){
             alert("Has superado el número de banderas.")
+            cellElement.innerHTML = "";
+            cellElement.classList.remove("cellFlag");
         }
     }
+    countFlags();
 }
 
 //comprobar banderas
 function chekFlags() {
     const correctFlags = flagArray.every(cell => boardArray[cell.row][cell.col].isMine);
     if(correctFlags){
-        alert("¡Has ganado!");
+        alert("¡Has ganado! Enhorabuena, has colocado todas las banderas en su lugar.");
     } else {
-        alert("Las banderas no están colocadas en todas las bombas. Inténtalo de nuevo")
+        alert("¡Has perdido! Las banderas no están colocadas en todas las bombas. Inténtalo de nuevo");
+        resetGame(); 
     }
+   
 }
 
 //botón comprobar
@@ -144,6 +149,19 @@ function resetGame (){
 
     createBoard();
     placeMines();
+    countFlags();
+
 }
 const resetButton = document.querySelector(".resetButton");
 resetButton.addEventListener("click", resetGame);
+
+
+function countFlags() {
+    const countFlagsElement = document.querySelector(".countFlags");
+    countFlagsElement.textContent = `Banderas colocadas: ${flagArray.length}`;
+    if(flagArray.length>mines){
+        countFlagsElement.textContent = "Banderas colocadas: 10";
+    }
+}
+
+
