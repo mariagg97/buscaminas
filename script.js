@@ -45,11 +45,9 @@ function placeMines(){
         if (!boardArray[randomRow][randomColumn].isMine) {
             boardArray[randomRow][randomColumn].isMine = true;
             mineArray.push({row: randomRow, column: randomColumn});
-        }
-    }
-    
-}
-
+        };
+    };
+};
 
 //click para bombas y click derecho para banderas
 function clickOnCell(row, col, event){
@@ -156,11 +154,8 @@ resetButton.addEventListener("click", resetGame);
 
 //contador banderas
 function countFlags() {
+    const maxFlag = 10; // Máximo de banderas permitidas
     const countFlagsElement = document.querySelector(".countFlags");
-    countFlagsElement.textContent = `Banderas colocadas: ${flagArray.length}`;
-    if(flagArray.length>mines){
-        countFlagsElement.textContent = "Banderas colocadas: 10";
-    }
+    const displayedFlags = Math.min(flagArray.length, maxFlag);
+    countFlagsElement.textContent = `Banderas colocadas: ${displayedFlags}`;
 }
-
-
