@@ -29,10 +29,10 @@ function createBoard() {
                 event.preventDefault();
                 placeFlag(row, col);
             });
-        }
+        };
         boardArray.push(rowArray);
-    }
-}
+    };
+};
 
 createBoard();
 placeMines();
@@ -53,8 +53,9 @@ function placeMines(){
 function clickOnCell(row, col, event){
     const cell = boardArray[row][col];
     const cellElement = document.querySelector(`[data-row="${row}"][data-column="${col}"]`);
-
-    if (event.button === 2){
+    const rightClick = 2;
+    
+    if (event.button === rightClick){
         placeFlag(row, col);
     }else if (cell.isMine){
         cellElement.innerHTML = "💣";
@@ -88,11 +89,11 @@ function countAdjacentMines(row, col){
             const newCol = col + c;
             if(newRow>=0 && newRow<rows && newCol>=0 && newCol<columns && boardArray[newRow][newCol].isMine){
                 count++
-            }
-        }
-    }
+            };
+        };
+    };
     return count;
-}
+};
 
 //colocar banderas
 function placeFlag(row, col){
@@ -101,24 +102,24 @@ function placeFlag(row, col){
     if(!cell.revealed){
         if(cellElement.innerHTML===""){
             cellElement.innerHTML="🚩";
-            cellElement.classList.add("cellFlag")
+            cellElement.classList.add("cellFlag");
             flagArray.push({row,col});
         } else { //quitar banderas
             cellElement.innerHTML = "";
             const index = flagArray.findIndex(cell => cell.row === row && cell.col === col);
             if (index !== -1) {
                 flagArray.splice(index, 1);
-            }
-            cellElement.classList.remove("cellFlag")
-        }
+            };
+            cellElement.classList.remove("cellFlag");
+        };
         if(flagArray.length>mines){
-            alert("Has superado el número de banderas.")
+            alert("Has superado el número de banderas.");
             cellElement.innerHTML = "";
             cellElement.classList.remove("cellFlag");
-        }
-    }
+        };
+    };
     countFlags();
-}
+};
 
 //comprobar banderas
 function chekFlags() {
@@ -128,9 +129,8 @@ function chekFlags() {
     } else {
         alert("¡Has perdido! Las banderas no están colocadas en todas las bombas. Inténtalo de nuevo");
         resetGame(); 
-    }
-   
-}
+    };
+};
 
 //botón comprobar
 const checkButton = document.querySelector(".checkButton");
@@ -147,8 +147,8 @@ function resetGame (){
     createBoard();
     placeMines();
     countFlags();
+};
 
-}
 const resetButton = document.querySelector(".resetButton");
 resetButton.addEventListener("click", resetGame);
 
@@ -158,4 +158,4 @@ function countFlags() {
     const countFlagsElement = document.querySelector(".countFlags");
     const displayedFlags = Math.min(flagArray.length, maxFlag);
     countFlagsElement.textContent = `Banderas colocadas: ${displayedFlags}`;
-}
+};
